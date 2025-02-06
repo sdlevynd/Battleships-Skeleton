@@ -13,3 +13,5 @@ List of additional features to add:
 -when you hit a ship show the user how many squares are left for that ship
 
 -when you completely destroy a ship, tell the user which type has been destroyed
+
+-any other changes you can think of
