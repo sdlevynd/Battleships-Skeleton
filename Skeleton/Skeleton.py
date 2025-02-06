@@ -45,11 +45,11 @@ def MakePlayerMove(Board, Ships):
         Board[Row][Column] = "h"
 
 
-def SetUpBoard():
+def SetUpBoard(RowNumber = 10, ColumnNumber = 10):
     Board = []
-    for Row in range(10):
+    for Row in range(RowNumber):
         BoardRow = []
-        for Column in range(10):
+        for Column in range(ColumnNumber):
             BoardRow.append("-")
         Board.append(BoardRow)
     return Board
@@ -90,9 +90,9 @@ def PlaceShip(Board, Ship, Row, Column, Orientation):
 
 
 def ValidateBoatPosition(Board, Ship, Row, Column, Orientation):
-    if Orientation == "v" and Row + Ship[1] > 10:
+    if Orientation == "v" and Row + Ship[1] > len(Board[0]):
         return False
-    elif Orientation == "h" and Column + Ship[1] > 10:
+    elif Orientation == "h" and Column + Ship[1] > len(Board):
         return False
     else:
         if Orientation == "v":
@@ -119,6 +119,8 @@ def PrintBoard(Board):
     print("The board looks like this: ")
     print()
     print(" ", end="")
+    columnSize = 20
+    rowSize = 20
     for Column in range(10):
         print(" " + str(Column) + "  ", end="")
     print()
@@ -174,13 +176,17 @@ if __name__ == "__main__":
     TRAININGGAME = "Training.txt"
     MenuOption = 0
     while not MenuOption == 9:
-        Board = SetUpBoard()
+        
         Ships = [["Aircraft Carrier", 5], ["Battleship", 4], ["Submarine", 3], ["Destroyer", 3], ["Patrol Boat", 2]]
         DisplayMenu()
         MenuOption = GetMainMenuChoice()
         if MenuOption == 1:
+            row = int(input("enter number of rows"))
+            col = int(input("enter number of columns"))
+            Board = SetUpBoard(row,col)
             PlaceRandomShips(Board, Ships)
             PlayGame(Board, Ships)
         if MenuOption == 2:
+            Board = SetUpBoard()
             LoadGame(TRAININGGAME, Board)
             PlayGame(Board, Ships)
